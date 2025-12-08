@@ -1,11 +1,11 @@
 :root {
   --color-bg: #0F0F0F;
   --color-surface: #1A1A1A;
-  --color-text-main: #E0E0E0;
-  --color-text-muted: #A0A0A0;
-  --color-gold: #D4AF37;
-  --color-gold-hover: #F4CF57;
-  --color-gold-dim: #8A7010;
+  --color-text-main: #F5F5F5;
+  --color-text-muted: #C0C0C0;
+  --color-gold: #E6C347;
+  --color-gold-hover: #FFD966;
+  --color-gold-dim: #B8993A;
 
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Lato', sans-serif;
@@ -17,6 +17,16 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -34,10 +44,34 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
 }
 
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
 a {
   text-decoration: none;
   color: inherit;
   transition: color 0.3s ease;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 ul {
@@ -50,8 +84,38 @@ ul {
   padding: 0 2rem;
 }
 
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+}
+
 .section {
   padding: var(--spacing-section) 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 3rem 0;
+  }
 }
 
 /* Animations Utility */

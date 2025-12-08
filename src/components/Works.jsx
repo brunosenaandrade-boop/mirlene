@@ -1,24 +1,30 @@
 import { motion } from 'framer-motion';
 
 const Works = () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     return (
-        <section className="section" id="works">
+        <section className="section" id="works" aria-labelledby="works-title">
             <div className="container">
-                <motion.div
-                    initial={{ opacity: 0 }}
+                <motion.header
+                    initial={prefersReducedMotion ? {} : { opacity: 0 }}
                     whileInView={{ opacity: 1 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : {}}
                     className="works-header"
                 >
-                    <h2 className="section-title text-center">Obras & <span className="gold-text"> inspirações</span></h2>
+                    <h2 id="works-title" className="section-title text-center">
+                        Obras & <span className="gold-text">Inspirações</span>
+                    </h2>
                     <p className="text-center subtitle">"A poesia é o transbordar da alma"</p>
-                </motion.div>
+                </motion.header>
 
                 <div className="works-grid">
-                    <motion.div
+                    <motion.article
                         className="poem-preview"
-                        whileHover={{ scale: 1.02 }}
-                        initial={{ opacity: 0, y: 30 }}
+                        whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : {}}
                     >
                         <h3>Temáticas</h3>
                         <p>
@@ -28,22 +34,29 @@ const Works = () => {
                             Minha escrita carrega um forte liame espiritualista, buscando sempre
                             compreender o divino através do humano.
                         </p>
-                    </motion.div>
+                    </motion.article>
 
-                    <motion.div
+                    <motion.article
                         className="book-teaser"
-                        whileHover={{ scale: 1.02 }}
-                        initial={{ opacity: 0, y: 30 }}
+                        whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+                        initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2 }}
                     >
                         <div className="book-content">
-                            <span className="badge">Em Breve</span>
+                            <span className="badge" aria-label="Status: Em breve">Em Breve</span>
                             <h3>Novo Livro</h3>
                             <p>Uma coleção exclusiva de poesias e crônicas selecionadas.</p>
-                            <button className="btn-gold">Aguarde o Lançamento</button>
+                            <button
+                                type="button"
+                                className="btn-gold"
+                                aria-disabled="true"
+                                disabled
+                            >
+                                Aguarde o Lançamento
+                            </button>
                         </div>
-                    </motion.div>
+                    </motion.article>
                 </div>
 
                 <div className="awards-list">
@@ -148,9 +161,42 @@ const Works = () => {
                     color: var(--color-gold);
                 }
 
+                @media (min-width: 769px) and (max-width: 1024px) {
+                    .works-grid {
+                        gap: 1.5rem;
+                    }
+                    .poem-preview, .book-teaser {
+                        padding: 2.5rem;
+                    }
+                }
+
                 @media (max-width: 768px) {
                     .works-grid {
                         grid-template-columns: 1fr;
+                        gap: 1.5rem;
+                    }
+                    .poem-preview, .book-teaser {
+                        padding: 2rem;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .subtitle {
+                        font-size: 0.95rem;
+                    }
+                    .poem-preview h3, .book-teaser h3 {
+                        font-size: 1.5rem;
+                    }
+                    .poem-preview, .book-teaser {
+                        padding: 1.5rem;
+                    }
+                    .awards-grid {
+                        flex-direction: column;
+                        gap: 1rem;
+                        align-items: center;
+                    }
+                    .awards-grid li {
+                        font-size: 0.85rem;
                     }
                 }
             `}</style>

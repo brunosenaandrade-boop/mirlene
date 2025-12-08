@@ -2,24 +2,42 @@ import { Mail, Facebook, Instagram } from 'lucide-react';
 
 const Contact = () => {
     return (
-        <footer className="footer" id="contact">
+        <footer className="footer" id="contact" role="contentinfo" aria-labelledby="contact-title">
             <div className="container footer-content">
                 <div className="contact-info">
-                    <h2 className="footer-title">Vamos <span className="gold-text">Conversar?</span></h2>
+                    <h2 id="contact-title" className="footer-title">
+                        Vamos <span className="gold-text">Conversar?</span>
+                    </h2>
                     <p>Entre em contato para palestras, eventos ou dúvidas.</p>
-                    <a href="mailto:eninhaandrade@gmail.com" className="email-link">
-                        <Mail className="icon-inline" /> eninhaandrade@gmail.com
+                    <a
+                        href="mailto:eninhaandrade@gmail.com"
+                        className="email-link"
+                        aria-label="Enviar email para eninhaandrade@gmail.com"
+                    >
+                        <Mail className="icon-inline" aria-hidden="true" /> eninhaandrade@gmail.com
                     </a>
                 </div>
 
-                <div className="social-links">
-                    <a href="https://www.facebook.com/mirlene.andrade" target="_blank" rel="noopener noreferrer" className="social-btn">
-                        <Facebook size={24} />
+                <nav className="social-links" aria-label="Redes sociais">
+                    <a
+                        href="https://www.facebook.com/mirlene.andrade"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-btn"
+                        aria-label="Visitar perfil no Facebook"
+                    >
+                        <Facebook size={24} aria-hidden="true" />
                     </a>
-                    <a href="https://www.instagram.com/mirlene_poetisa/" target="_blank" rel="noopener noreferrer" className="social-btn">
-                        <Instagram size={24} />
+                    <a
+                        href="https://www.instagram.com/mirlene_poetisa/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-btn"
+                        aria-label="Visitar perfil no Instagram"
+                    >
+                        <Instagram size={24} aria-hidden="true" />
                     </a>
-                </div>
+                </nav>
 
                 <div className="credits">
                     <p>&copy; {new Date().getFullYear()} Mirlene Andrade. Todos os direitos reservados.</p>

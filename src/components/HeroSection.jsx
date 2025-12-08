@@ -2,33 +2,45 @@ import { motion } from 'framer-motion';
 import foto from '../assets/foto.png'; // Will fail if not moved, will handle fallback visually if needed
 
 const HeroSection = () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     return (
-        <section className="hero-section">
-            <div className="overlay"></div>
+        <section className="hero-section" id="home" aria-label="Apresentação">
+            <div className="overlay" aria-hidden="true"></div>
             <div className="container hero-content">
                 <motion.div
-                    initial={{ opacity: 0, x: -50 }}
+                    initial={prefersReducedMotion ? {} : { opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 1 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 1 }}
                     className="text-content"
                 >
-                    <h2 className="subtitle">Bem-vinda ao mundo de</h2>
+                    <p className="subtitle">Bem-vinda ao mundo de</p>
                     <h1 className="title">Mirlene <span className="gold-text">Andrade</span></h1>
-                    <p className="roles">Historiadora | Poetisa | Funcionária Pública</p>
+                    <p className="roles" aria-label="Profissões: Historiadora, Poetisa e Funcionária Pública">
+                        Historiadora | Poetisa | Funcionária Pública
+                    </p>
                     <p className="tagline">"Transformando sentimentos e histórias em arte."</p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
+                    initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 1, delay: 0.5 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 1, delay: 0.5 }}
                     className="image-content"
                 >
-                    <div className="image-frame">
-                        {/* Fallback to text initials if image breaks or check manually */}
-                        <img src={foto} alt="Mirlene Andrade" onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.classList.add('no-image') }} />
-                        <div className="placeholder-text">MA</div>
-                    </div>
+                    <figure className="image-frame">
+                        <img
+                            src={foto}
+                            alt="Fotografia de Mirlene Andrade, historiadora e poetisa de Aracaju, Sergipe"
+                            loading="eager"
+                            decoding="async"
+                            onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.parentElement.classList.add('no-image')
+                            }}
+                        />
+                        <div className="placeholder-text" aria-hidden="true">MA</div>
+                    </figure>
                 </motion.div>
             </div>
 
@@ -110,12 +122,25 @@ const HeroSection = () => {
                     color: var(--color-gold);
                 }
 
+                @media (min-width: 769px) and (max-width: 1024px) {
+                    .hero-content {
+                        gap: 3rem;
+                    }
+                    .title {
+                        font-size: 4rem;
+                    }
+                    .image-frame {
+                        width: 350px;
+                        height: 450px;
+                    }
+                }
+
                 @media (max-width: 768px) {
                     .hero-content {
                         grid-template-columns: 1fr;
                         text-align: center;
                         gap: 2rem;
-                        padding-top: 4rem;
+                        padding-top: 5rem;
                     }
                     .roles {
                         border-left: none;
@@ -131,6 +156,44 @@ const HeroSection = () => {
                     }
                     .title {
                         font-size: 3.5rem;
+                    }
+                    .subtitle {
+                        font-size: 1.2rem;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .hero-content {
+                        padding-top: 4rem;
+                        gap: 1.5rem;
+                    }
+                    .title {
+                        font-size: 2.5rem;
+                    }
+                    .subtitle {
+                        font-size: 1rem;
+                    }
+                    .roles {
+                        font-size: 1rem;
+                    }
+                    .tagline {
+                        font-size: 0.95rem;
+                    }
+                    .image-frame {
+                        width: 250px;
+                        height: 330px;
+                        padding: 15px;
+                    }
+                }
+
+                @media (max-width: 360px) {
+                    .image-frame {
+                        width: 220px;
+                        height: 300px;
+                        padding: 10px;
+                    }
+                    .title {
+                        font-size: 2rem;
                     }
                 }
             `}</style>

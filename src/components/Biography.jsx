@@ -2,25 +2,31 @@ import { motion } from 'framer-motion';
 import { BookOpen, Heart, Landmark } from 'lucide-react';
 
 const Biography = () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     return (
-        <section className="section bg-surface" id="biography">
+        <section className="section bg-surface" id="biography" aria-labelledby="biography-title">
             <div className="container">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                <motion.header
+                    initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    transition={prefersReducedMotion ? { duration: 0 } : {}}
                     className="bio-header"
                 >
-                    <h2 className="section-title">Minha <span className="gold-text">Trajetória</span></h2>
+                    <h2 id="biography-title" className="section-title">
+                        Minha <span className="gold-text">Trajetória</span>
+                    </h2>
                     <p className="section-subtitle">De Aracaju para o mundo das letras</p>
-                </motion.div>
+                </motion.header>
 
                 <div className="bio-grid">
-                    <motion.div
+                    <motion.article
                         className="bio-text"
-                        initial={{ opacity: 0, x: -30 }}
+                        initial={prefersReducedMotion ? {} : { opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
+                        transition={prefersReducedMotion ? { duration: 0 } : {}}
                     >
                         <p>
                             Nascida em <strong className="gold-highlight">Aracaju, Sergipe</strong>, Mirlene Andrade trilhou um caminho singular entre a História e a Poesia.
@@ -35,31 +41,32 @@ const Biography = () => {
                             Como funcionária pública, dedicou 18 anos à área de Saúde Mental em um CAPS, onde uniu arte e cuidado,
                             realizando oficinas de teatro do oprimido e alfabetização para pessoas com transtornos mentais.
                         </p>
-                    </motion.div>
+                    </motion.article>
 
-                    <motion.div
+                    <motion.aside
                         className="bio-cards"
-                        initial={{ opacity: 0, x: 30 }}
+                        initial={prefersReducedMotion ? {} : { opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ staggerChildren: 0.2 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { staggerChildren: 0.2 }}
+                        aria-label="Destaques da carreira"
                     >
-                        <div className="card">
-                            <Landmark className="icon" size={32} />
+                        <article className="card">
+                            <Landmark className="icon" size={32} aria-hidden="true" />
                             <h3>Academia</h3>
                             <p>Membra da ABLPL (Cadeira 13) e ABLA (Cadeira 07)</p>
-                        </div>
-                        <div className="card">
-                            <BookOpen className="icon" size={32} />
+                        </article>
+                        <article className="card">
+                            <BookOpen className="icon" size={32} aria-hidden="true" />
                             <h3>Publicações</h3>
                             <p>Antologias "Poemas do Brasil" e "Mulheres Brilhantes"</p>
-                        </div>
-                        <div className="card">
-                            <Heart className="icon" size={32} />
+                        </article>
+                        <article className="card">
+                            <Heart className="icon" size={32} aria-hidden="true" />
                             <h3>Saúde & Arte</h3>
                             <p>Atuação terapêutica no CAPS e Teatro do Oprimido</p>
-                        </div>
-                    </motion.div>
+                        </article>
+                    </motion.aside>
                 </div>
             </div>
 
@@ -122,6 +129,13 @@ const Biography = () => {
                     color: var(--color-gold);
                 }
 
+                @media (min-width: 769px) and (max-width: 1024px) {
+                    .bio-grid {
+                        grid-template-columns: 1fr 0.9fr;
+                        gap: 3rem;
+                    }
+                }
+
                 @media (max-width: 768px) {
                     .bio-grid {
                         grid-template-columns: 1fr;
@@ -129,6 +143,26 @@ const Biography = () => {
                     }
                     .section-title {
                         font-size: 2.5rem;
+                    }
+                    .bio-text {
+                        text-align: left;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                    .section-title {
+                        font-size: 2rem;
+                    }
+                    .bio-text p {
+                        font-size: 1rem;
+                        text-align: left;
+                    }
+                    .card {
+                        padding: 1.25rem;
+                    }
+                    .icon {
+                        width: 24px;
+                        height: 24px;
                     }
                 }
             `}</style>
