@@ -12,7 +12,7 @@ const Navbar = () => {
             setIsScrolled(window.scrollY > 50);
 
             // Detectar seção ativa
-            const sections = ['home', 'biography', 'works', 'contact'];
+            const sections = ['home', 'biography', 'poems', 'works', 'contact'];
             const current = sections.find(section => {
                 const element = document.getElementById(section);
                 if (element) {
@@ -47,6 +47,7 @@ const Navbar = () => {
     const navItems = [
         { id: 'home', label: 'Início' },
         { id: 'biography', label: 'Biografia' },
+        { id: 'poems', label: 'Poesias' },
         { id: 'works', label: 'Obras' },
         { id: 'contact', label: 'Contato' }
     ];
